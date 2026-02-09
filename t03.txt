@@ -1,0 +1,6 @@
+SELECT m.memberSurname, m.memberForename, p.pubTitle
+FROM member m 
+JOIN pub p ON m.memberID = p.pubMemberId
+WHERE p.pubPubType = 'p'
+AND p.pubTitle LIKE '%China%'
+ORDER BY p.pubTitle

@@ -1,0 +1,10 @@
+SELECT
+pt.pubTypeDesc,
+COUNT(p.pubId) AS numPublications
+FROM pub p
+JOIN pubType pt
+ON p.pubPubType = pt.pubType
+GROUP BY
+pt.pubTypeDesc
+ORDER BY
+pt.pubTypeDesc

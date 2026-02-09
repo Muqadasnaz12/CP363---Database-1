@@ -1,0 +1,13 @@
+SELECT 
+m.memberSurname, 
+m.memberForename, 
+COUNT(p.pubId) AS numPublications 
+FROM member m 
+LEFT JOIN pub p 
+ON m.memberID = p.pubMemberId
+GROUP BY 
+m.memberSurname, 
+m.memberForename
+ORDER BY
+m.memberSurname,
+m.memberForename

@@ -1,0 +1,16 @@
+SELECT
+m.memberSurname,
+m.memberForename,
+n.narrowDesc,
+b.broadDesc
+FROM member m 
+JOIN memberNarrow mn
+ON m.memberID = mn.memberNarrowMemberId
+JOIN narrow n
+ON mn.memberNarrowNarrowId = n.narrowID
+JOIN broad b
+ON n.narrowBroadID = b.broadID
+ORDER BY
+m.memberSurname,
+m.memberForename,
+n.narrowDesc

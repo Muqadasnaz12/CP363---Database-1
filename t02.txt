@@ -1,0 +1,5 @@
+SELECT m.memberSurname, m.memberForename, p.pubPubType, p.pubTitle 
+FROM member m 
+JOIN pub p ON m.memberID = p.pubMemberId
+WHERE m.memberInstitution = 'McGill University'
+ORDER BY m.memberSurname, m.memberForename 
