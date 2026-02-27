@@ -1,14 +1,11 @@
-SELECT 
-m.memberSurname,
-m.memberForename,
-COUNT(p.pubId) AS numBooks
-FROM member m
-LEFT JOIN pub p 
-ON m.memberID = p.pubMemberId
-AND p.pubPubType = 'b'
-GROUP BY
-m.memberSurname,
-m.memberForename
+SELECT
+n.narrowDesc
+
+FROM narrow n
+
+WHERE n.narrowID NOT IN
+(SELECT mn.memberNarrowNarrowId
+FROM memberNarrow mn)
+
 ORDER BY
-m.memberSurname, 
-m.memberForename
+n.narrowDesc

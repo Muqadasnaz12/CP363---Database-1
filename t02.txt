@@ -1,5 +1,15 @@
-SELECT m.memberSurname, m.memberForename, p.pubPubType, p.pubTitle 
-FROM member m 
-JOIN pub p ON m.memberID = p.pubMemberId
-WHERE m.memberInstitution = 'McGill University'
-ORDER BY m.memberSurname, m.memberForename 
+SELECT
+m.memberSurname,
+m.memberForename,
+
+(SELECT COUNT(*)
+FROM memberBroad mb
+WHERE mb.memberBroadMemberId = m.memberID) AS broadCount,
+(SELECT COUNT(*)
+FROM memberNarrow mn
+WHERE mn.memberNarrowMemberId = m.memberID) AS narrowCount
+
+FROM member m
+ORDER BY
+m.memberSurname,
+m.memberForename

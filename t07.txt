@@ -1,10 +1,11 @@
 SELECT
-pt.pubTypeDesc,
-COUNT(p.pubId) AS numPublications
-FROM pub p
-JOIN pubType pt
-ON p.pubPubType = pt.pubType
-GROUP BY
-pt.pubTypeDesc
+b.broadDesc
+
+FROM broad b
+
+WHERE b.broadID NOT IN
+(SELECT mb.memberBroadBroadId
+FROM memberBroad mb)
+
 ORDER BY
-pt.pubTypeDesc
+b.broadDesc

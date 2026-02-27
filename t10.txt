@@ -1,13 +1,11 @@
 SELECT
-m.memberSurname, 
-m.memberForename,
-COUNT(mn.memberNarrowNarrowId) AS numNarrowExpertises
-FROM member m 
-LEFT JOIN memberNarrow mn 
-ON m.memberID = mn.memberNarrowMemberId
-GROUP BY
-m.memberSurname, 
-m.memberForename
+b.broadDesc
+
+FROM broad b
+
+WHERE b.broadID NOT IN
+(SELECT n.narrowBroadID
+FROM narrow n)
+
 ORDER BY
-m.memberSurname, 
-m.memberForename
+b.broadDesc

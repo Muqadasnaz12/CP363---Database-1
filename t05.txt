@@ -1,13 +1,18 @@
-SELECT 
-m.memberSurname, 
-m.memberForename, 
-COUNT(p.pubId) AS numPublications 
-FROM member m 
-LEFT JOIN pub p 
-ON m.memberID = p.pubMemberId
-GROUP BY 
-m.memberSurname, 
-m.memberForename
+SELECT
+m.memberSurname,
+m.memberForename,
+
+(SELECT COUNT(*)
+FROM pub p
+WHERE p.pubMemberId = m.memberID) AS pubCount
+
+FROM member m
+
+WHERE
+(SELECT COUNT(*)
+FROM pub p
+WHERE p.pubMemberId = m.memberID) >= 5
+
 ORDER BY
 m.memberSurname,
 m.memberForename

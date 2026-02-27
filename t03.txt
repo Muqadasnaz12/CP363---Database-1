@@ -1,6 +1,26 @@
-SELECT m.memberSurname, m.memberForename, p.pubTitle
-FROM member m 
-JOIN pub p ON m.memberID = p.pubMemberId
-WHERE p.pubPubType = 'p'
-AND p.pubTitle LIKE '%China%'
-ORDER BY p.pubTitle
+SELECT
+m.memberSurname,
+m.memberForename,
+n.narrowDesc
+
+FROM member m
+JOIN memberNarrow mn
+ON m.memberID = mn.memberNarrowMemberId
+JOIN narrow n
+ON mn.memberNarrowNarrowId = n.narrowID
+
+WHERE n.narrowBroadID =
+(SELECT broadID
+FROM broad
+WHERE broadDesc = 'Arms Control and Non-Proliferation Studies')
+
+AND m.memberID NOT IN
+(SELECT mb.memberBroadMemberId
+FROM memberBroad mb
+JOIN broad b
+ON mb.memberBroadBroadId = b.broadID
+WHERE b.broadDesc = 'Environmental Security')
+
+ORDER BY
+m.memberSurname,
+m.memberForename

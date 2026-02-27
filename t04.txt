@@ -1,6 +1,19 @@
-SELECT m.memberSurname, m.memberForename, p.pubTitle
+SELECT
+m.memberSurname,
+m.memberForename,
+b.broadDesc
+
 FROM member m
-JOIN pub p ON m.memberID = p.pubMemberId
-WHERE m.memberForename = 'Leonard' 
-AND m.memberSurname = 'Friesen'
-ORDER BY p.pubTitle
+JOIN memberBroad mb
+ON m.memberID = mb.memberBroadMemberId
+JOIN broad b
+ON mb.memberBroadBroadId = b.broadID
+
+WHERE m.memberID NOT IN
+(SELECT pubMemberId
+FROM pub)
+
+ORDER BY
+m.memberSurname,
+m.memberForename,
+b.broadDesc

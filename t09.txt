@@ -1,10 +1,18 @@
-SELECT 
-b.broadDesc, 
-COUNT(mb.memberBroadMemberId) AS numMembers
-FROM broad b
-LEFT JOIN memberBroad mb
-ON b.broadID = mb.memberBroadBroadId
-GROUP BY
-b.broadDesc
+SELECT
+m.memberSurname,
+m.memberForename,
+
+(SELECT COUNT(*)
+FROM memberNarrow mn
+WHERE mn.memberNarrowMemberId = m.memberID) AS narrowCount
+
+FROM member m
+
+WHERE
+(SELECT COUNT(*)
+FROM memberNarrow mn
+WHERE mn.memberNarrowMemberId = m.memberID) >= 32
+
 ORDER BY
-b.broadDesc
+m.memberSurname,
+m.memberForename

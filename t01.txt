@@ -1,4 +1,23 @@
-SELECT m.memberSurname, m.memberForename, p.pubPubType, p.pubTitle
+SELECT
+m.memberSurname,
+m.memberForename,
+
+(SELECT COUNT(*) 
+FROM pub p
+WHERE p.pubMemberId = m.memberID
+AND p.pubPubType = 'b') AS books,
+
+(SELECT COUNT(*)
+FROM pub p
+WHERE p.pubMemberId = m.memberID
+AND p.pubPubType = 'a') AS articles,
+
+(SELECT COUNT(*)
+FROM pub p
+WHERE p.pubMemberId = m.memberID
+AND p.pubPubType = 'p') AS papers
+
 FROM member m
-JOIN pub p ON m.memberID = p.pubMemberId
-ORDER BY m.memberSurname, m.memberForename, p.pubPubType, p.pubTitle
+ORDER BY
+m.memberSurname,
+m.memberForename
